@@ -23,6 +23,7 @@ import {
   mdiArrowRight,
   mdiPlusBoxOutline,
   mdiReload,
+  mdiShareVariantOutline,
 } from '@mdi/js';
 
 export interface Candidate {
@@ -87,6 +88,25 @@ const handleVoteClick = () => {
     },
     query: { ...route.query },
   });
+};
+
+const handleResultsClick = () => {
+  router.push({
+    name: appRoutes.result.name,
+    params: {
+      ...route.params,
+      type: `${'volby'}`,
+      first: props.election,
+      second: props.district,
+    },
+    query: { ...route.query },
+  });
+};
+
+const shareModal = ref<{ open: () => void } | null>(null);
+
+const handleShareClick = () => {
+  shareModal.value?.open();
 };
 
 const electionStore = useElectionStore();

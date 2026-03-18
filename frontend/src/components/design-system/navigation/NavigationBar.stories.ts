@@ -46,25 +46,14 @@ TransparentBackground.args = {
 
 export const SignedOut = Template.bind({});
 SignedOut.args = {
-  withAccount: true,
   transparent: true,
 };
 
 export const LoggedIn = Template.bind({});
 LoggedIn.args = {
-  withAccount: true,
   transparent: true,
-  user: {
-    displayName: 'Gina Charming',
-    img_url: 'https://thispersondoesnotexist.com/image',
-  },
 };
 
 export const LoggedInNoAvatar = Template.bind({});
 LoggedInNoAvatar.args = {
-  withAccount: true,
-  user: {
-    displayName: 'Gina Charming',
-    img_url: undefined,
-  },
 };

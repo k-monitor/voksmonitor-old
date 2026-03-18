@@ -6,6 +6,7 @@ import {
   mdiCloseCircleOutline,
   mdiArrowLeft,
   mdiArrowRight,
+  mdiEmailOutline,
 } from '@mdi/js';
 
 import { appRoutes } from '@/main';
@@ -98,6 +99,38 @@ const handleShowComparsionClick = () => {
 
 
 console.debug(encodeResults(electionStore.answers));
+
+const email = ref('');
+const posting = ref(false);
+const emailError = ref<string | undefined>(undefined);
+const success = ref(false);
+const message = ref('');
+
+const handleSubscribe = async () => {
+  if (!email.value) {
+    emailError.value = t('routes.index.IndexPage.input-label');
+    return;
+  }
+  posting.value = true;
+  emailError.value = undefined;
+  try {
+    const response = await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email.value }),
+    });
+    if (response.ok) {
+      success.value = true;
+      message.value = t('routes.index.IndexPage.inform-me');
+    } else {
+      emailError.value = t('routes.index.IndexPage.input-label');
+    }
+  } catch {
+    emailError.value = t('routes.index.IndexPage.input-label');
+  } finally {
+    posting.value = false;
+  }
+};
 
 const candidateAnswers: DeprecatedCandidateAnswer[] =
   electionStore.calculator?.answers || [];
